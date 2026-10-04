@@ -1,11 +1,7 @@
-## Purpose
-
-Preserve Chengdu's restaurant discovery and ordering experience across desktop and mobile while moving presentation to static pages and retaining localized interactions.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Preserve the restaurant home presentation
-The site SHALL retain the home page's restaurant identity, responsive video hero, delivery/pickup/menu actions, featured dishes, restaurant features, gallery, about text, location section, and footer in every enabled language. Existing red/gold styling, fonts with suitable language fallbacks, dish images, translated image descriptions, and translated AI image labels MUST remain recognizable at desktop and mobile sizes. English SHALL remain at `/`; non-English home pages SHALL use `/{locale}/`. A Google reviews section SHALL appear after dining options and before About, without changing the relative order of existing sections; its content and fallback behavior SHALL follow the `google-review-display` capability.
+The site SHALL retain the home page's restaurant identity, responsive video hero, delivery/pickup/menu actions, featured dishes, restaurant features, gallery, about text, location section, and footer in every enabled language. Existing red/gold styling, fonts with suitable language fallbacks, dish images, translated image descriptions, and translated AI image labels MUST remain recognizable at desktop and mobile sizes. English SHALL remain at `/`; non-English home pages SHALL use `/{locale}/`.
 
 #### Scenario: Browse the home page on desktop or mobile
 - **WHEN** a visitor opens `/` or an enabled locale's home page at a desktop or mobile viewport
@@ -14,10 +10,6 @@ The site SHALL retain the home page's restaurant identity, responsive video hero
 #### Scenario: Video playback is unavailable
 - **WHEN** a browser cannot autoplay or load the background video
 - **THEN** the restaurant title, hero layout, language control, and action links remain visible and usable
-
-#### Scenario: Google reviews are unavailable
-- **WHEN** review configuration is disabled or Google review retrieval fails
-- **THEN** the Google Maps fallback link is available and existing homepage content, ordering destinations, and location access remain unchanged
 
 ### Requirement: Preserve navigation and ordering destinations
 The site SHALL expose localized equivalents of Home, Full Menu, Get Delivery, Get Pickup, Blogs, and Visit Us navigation, retain mobile navigation and contextual floating actions, and preserve the destinations and new-tab behavior of existing ordering links. Internal links SHALL retain the selected language. Ordering MUST remain available regardless of the displayed business-hour state.
@@ -53,21 +45,6 @@ The site SHALL retain `/menu` and `/menu-mobile` as English menus and provide bo
 - **WHEN** a visitor activates a mobile menu dish card on a translated page
 - **THEN** the drawer shows the localized name, description, feature badges, and close label while retaining existing modal keyboard and focus behavior
 
-### Requirement: Preserve gallery and dish detail interactions
-The site SHALL retain featured-image detail expansion and the gallery's responsive grid, previous/next controls, autoplay behavior, and fullscreen dish information. Mobile menu dish selection SHALL open a detail drawer with image, name, description, and feature badges.
-
-#### Scenario: Interact with the gallery
-- **WHEN** a visitor uses previous navigation or expands a gallery image on mobile
-- **THEN** the appropriate slide/detail state is shown and autoplay stops as in the existing interaction
-
-#### Scenario: Open and close dish information with a keyboard
-- **WHEN** a visitor activates a dish detail control with Enter or Space and closes the dialog with Escape or Close
-- **THEN** its details are readable, focus stays within the open dialog, background scrolling is prevented, and closing restores focus to the initiating control
-
-#### Scenario: Close an overlay from its backdrop
-- **WHEN** a visitor selects the backdrop outside an open dish dialog
-- **THEN** the dialog closes without activating a background card or losing the current browsing position
-
 ### Requirement: Preserve contact information and live business hours
 The site SHALL retain the restaurant address, both telephone links, map embed, weekly business-hour schedule, current-month calendar, current-day marker, open-status labels, and next-opening message. Dates, weekday labels, time presentation, status labels, and next-opening duration messages SHALL use the selected language. Runtime status SHALL be calculated from the visitor's current local clock using existing business rules and refreshed at least once per minute; generated HTML MUST NOT present a build-time status as a live value. Changing language MUST NOT alter schedule values or status calculations.
 
@@ -82,10 +59,3 @@ The site SHALL retain the restaurant address, both telephone links, map embed, w
 #### Scenario: Compare hours across languages
 - **WHEN** the same runtime instant is displayed in two enabled languages
 - **THEN** the labels and formatting differ by locale but contact values, weekly schedule, current status, and next-opening instant are equivalent
-
-### Requirement: Preserve essential content without client scripts
-The site SHALL render navigation links, restaurant information, menu categories and dish names, article content, and ordering links in the delivered HTML. Localized enhancements MUST NOT make essential content depend on hydration or third-party availability.
-
-#### Scenario: Browse with JavaScript disabled
-- **WHEN** a visitor disables JavaScript
-- **THEN** core pages, menu anchors, article links, weekly hours, and ordering destinations remain usable, even when dialogs, live status, or carousel motion are unavailable
