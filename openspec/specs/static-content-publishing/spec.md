@@ -63,7 +63,7 @@ The build SHALL report invalid required article metadata, malformed dates, dupli
 - **THEN** the build fails and identifies the offending source and validation problem
 
 ### Requirement: Preserve page metadata and crawlable outputs
-The site SHALL emit localized page-specific titles, descriptions, keywords where used, absolute self-canonical URLs, Open Graph/Twitter metadata, document language matching the exact locale identifier, available social images, sitemap files, robots policy, and manifest/icon references using `https://www.chengdufoodtulsa.com` as the production origin. Every indexed localized page SHALL emit reciprocal alternate links for its equivalent pages in all enabled languages and an `x-default` alternate pointing to its English counterpart. These outputs MUST NOT require client JavaScript.
+The site SHALL emit localized page-specific titles, descriptions, keywords where used, absolute self-canonical URLs, Open Graph/Twitter metadata, document language matching the exact locale identifier, available social images, sitemap files, robots policy, and manifest/icon references using `https://chengdufoodtulsa.com` as the production origin. Every indexed localized page SHALL emit reciprocal alternate links for its equivalent pages in all enabled languages and an `x-default` alternate pointing to its English counterpart. These outputs MUST NOT require client JavaScript.
 
 #### Scenario: Inspect an article and listing page
 - **WHEN** a crawler reads the generated HTML for an article or blog listing in any enabled language
