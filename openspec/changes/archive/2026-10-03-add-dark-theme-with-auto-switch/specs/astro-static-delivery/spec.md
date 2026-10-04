@@ -1,19 +1,4 @@
-## Purpose
-
-Define Chengdu's reproducible static-site development and delivery contract, including framework-runtime reduction, build artifact compatibility, and safe browser-only telemetry.
-
-## Requirements
-
-### Requirement: Provide reproducible static development and builds
-The repository SHALL support `npm ci`, `npm run dev`, `npm start`, `npm run build`, `npm run serve`, `npm test`, and `npm run typecheck` on a supported Node.js 22 version. Builds SHALL produce the complete static site in `dist/` without invoking Gatsby or requiring a persistent application server.
-
-#### Scenario: Build from a clean dependency installation
-- **WHEN** a developer installs the lockfile with `npm ci` and runs `npm run build`
-- **THEN** the build succeeds using the replacement toolchain and emits HTML, CSS, and assets under `dist/` without Gatsby-generated page data
-
-#### Scenario: Preview the generated site
-- **WHEN** a developer runs `npm run serve` after building
-- **THEN** home, both menu URLs, listing pages, article deep links, redirects, and media can be accessed locally from the static artifact
+## MODIFIED Requirements
 
 ### Requirement: Limit client runtime to interactive surfaces
 The site SHALL deliver static presentation and article bodies without page-wide hydration. Client scripts or hydrated components SHALL be limited to the navigation, theme initialization and switching, live business hours, galleries, dish dialogs, floating actions, video adaptation, telemetry, and an isolated Google reviews enhancement that actually need browser behavior. Theme initialization SHALL be a bounded pre-paint enhancement shared across content routes; manual switching MUST NOT require whole-page hydration or a persistent application server. Convertible presentation and interactions SHALL render through native Astro HTML with bounded browser enhancements and MUST NOT deliver React or React DOM runtime code. Any retained React boundary MUST have a documented technical blocker, its affected routes and interaction scope, and an explicit removal strategy; static presentation MUST NOT be included in that exception's hydration boundary. With no justified exception, generated pages and their first-party script dependency graph MUST contain no React hydration entry or runtime. The reviews enhancement SHALL preserve a static heading and Google Maps link, load its third-party provider only according to the `google-review-display` capability, and require neither a persistent application server nor review-data requests during builds. Gatsby runtime MUST NOT be delivered.
@@ -54,36 +39,3 @@ The site SHALL deliver static presentation and article bodies without page-wide 
 #### Scenario: Initialize and switch themes on static routes
 - **WHEN** a visitor opens home, menu, or article content and changes the theme
 - **THEN** a pre-paint bootstrap and a bounded control enhancement provide the behavior without page-wide hydration, React/Gatsby runtime, or homepage-only enhancement code on unrelated routes
-
-### Requirement: Keep artifact consumers aligned
-The configured CI build and static-host artifact upload SHALL consume `dist/` rather than the old generated `public/` directory. The sitemap-consuming IndexNow utility SHALL read generated sitemap URL entries from `dist/` without treating child-sitemap locations as page URLs.
-
-#### Scenario: Inspect CI build configuration
-- **WHEN** CI configuration is evaluated for a site change
-- **THEN** the test workflow includes replacement framework configuration paths and the build workflow's size reporting and upload source both point to the generated static artifact
-
-#### Scenario: Preview sitemap submission without network writes
-- **WHEN** `node scripts/indexnow.js --dry-run` is run after a build
-- **THEN** it reads the generated child sitemap files and reports page URLs without submitting requests or including sitemap XML URLs as pages
-
-### Requirement: Preserve telemetry without blocking navigation
-Production browser pages SHALL retain existing Clarity/Google tracking identifiers, button event names, and ordering conversion identifiers. Analytics SHALL initialize only when explicitly enabled for a production build; Google tracking SHALL continue respecting DNT and its existing excluded paths. Server-side builds, development, and non-production previews MUST NOT initialize telemetry.
-
-#### Scenario: Build or browse a non-production preview
-- **WHEN** a static build runs or a visitor opens a development/preview site without the production analytics flag
-- **THEN** browser tracking is not initialized and normal links remain functional
-
-#### Scenario: Select a tracked production action
-- **WHEN** a visitor selects an ordering, menu, or location action on an analytics-enabled production page
-- **THEN** the matching existing button event and applicable ordering conversion are attempted without suppressing the link's ordinary navigation
-
-#### Scenario: Google tracking is excluded
-- **WHEN** DNT is enabled or the current path matches an existing Google tracking exclusion
-- **THEN** Google pageview and conversion requests are not sent
-
-### Requirement: Document the replacement authoring contract
-Repository documentation SHALL describe supported runtime/install commands, local development/preview, `dist/` output, existing Markdown and YAML authoring locations, preserved slug conventions, source static assets, and replacement analytics configuration.
-
-#### Scenario: Follow local setup and article authoring instructions
-- **WHEN** a contributor follows the updated README and article guide
-- **THEN** the contributor can build and preview the site and add an article at its intended slug without relying on Gatsby commands or GraphQL setup
