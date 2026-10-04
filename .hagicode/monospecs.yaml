@@ -1,0 +1,10 @@
+version: 1.0
+repo_dir: repos
+commit_when_archive: true
+repositories:
+  - path: repos/chengdu
+    url: https://github.com/newbe36524/chengdu.git
+    displayName: Chengdu
+    icon: code
+    optional: false
+    tags: []
